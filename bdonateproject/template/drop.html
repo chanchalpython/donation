@@ -1,0 +1,5 @@
+{% load static %}
+<option value=""> -Select Your Center-</option>
+    {% for city in cities %}
+<option value="{{ city.pk }}">{{ city.name }}</option>
+{% endfor %}

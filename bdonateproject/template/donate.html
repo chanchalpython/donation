@@ -1,0 +1,50 @@
+
+{% load static %}
+<head>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <style>
+        .my_custom_button{
+    margin-top:5px;
+    }
+    </style>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" xmlns="http://www.w3.org/1999/html">
+  <a class="navbar-brand" href="#" style="color:Crimson;">
+      <img src="{% static 'img/sublogo.jpg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+      <b style="width:1220px;height:40px;">BLOOD BANK</b>
+  </a>
+    <a class="nav-link active" href="{% url 'demo' %}" style="padding-left:20px;">Back to Home</a>
+     <a href="{% url 'logout' %}"><button type="submit" class="btn btn-primary"><b style="font-size:20;">Logout</b></button></a>
+</nav>
+
+    <div style="background-color:GreenYellow;height:480px;">
+
+        {% block content %}
+<div class="container">
+<br>
+    {% if user.is_authenticated %}
+    <b style="color:green;padding-left:20px;"><marquee dir="left-right">Welcome! {{user.first_name}}</marquee></b>
+    {% endif %}
+    </div>
+        {% for message in messages %}
+<h1>{{message}}</h1>
+{% endfor %}
+        <center>
+         <div class="mx-auto">
+            <br><br><br>
+             <a href="{% url 'fillform' %}"><button type="submit" class="btn btn-danger"><b style="font-size:20;">DONATE BLOOD</b></button> </a>
+         </div></center>
+
+
+    </div>
+    {% endblock %}
+<br>
+    <footer style="background-color:pink;
+font-size:14px;height:20px;">
+<div class="footer navbar-fixed-bottom my_footer">
+    <center><p>&copy;Blood Bank.All Rights Reserved.</p></center>
+</div>
+</footer>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>

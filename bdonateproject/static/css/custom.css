@@ -1,0 +1,12 @@
+.navbar-brand a{
+font-color:red;}
+.my_footer p{
+padding-top:20px;
+font-size:14px;}
+.my_footer{
+background-color:pink;
+height:40px;
+}
+.my_custom_button{
+    margin-top:5px;
+}

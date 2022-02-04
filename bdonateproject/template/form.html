@@ -1,0 +1,67 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <title>Form</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" xmlns="http://www.w3.org/1999/html">
+  <a class="navbar-brand" href="#" style="color:Crimson;">
+      <img src="{% static 'img/sublogo.jpg' %}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+      <b style="width:1220px;height:40px;">BLOOD BANK</b>
+  </a><a class="nav-link active" href="{% url 'demo' %}" style="padding-left:20px">Back to Home</a>
+    <b>
+    <a href="{% url 'logout' %}" style="padding-left:700px;"><button type="submit" class="btn btn-primary" >Logout</button></a></b>
+</nav>
+<center>
+<div style="height:490px;color:red;background-color:aqua;">
+{% block content %}
+
+    <h2><u>Fill In The Form</u></h2>
+
+  <form method="post" id="BookForm" data-cities-url="{% url 'ajax_load_cities' %}">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn-btn-danger">SUBMIT</button>
+  </form>
+
+      {% for message in messages %}
+  <h1>{{message}}</h1>
+  {% endfor %}
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_country").change(function () {
+      var url = $("#BookForm").attr("data-cities-url");  // get the url of the `load_cities` view
+      var countryId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'country': countryId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+{% endblock %}
+</div>
+</center>
+
+<footer style="background-color:pink;
+font-size:14px;height:20px;">
+<div class="footer navbar-fixed-bottom my_footer">
+    <center><p>&copy;Blood Bank.All Rights Reserved.</p></center>
+</div>
+</footer>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
